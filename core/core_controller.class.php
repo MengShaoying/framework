@@ -1,5 +1,6 @@
 <?php
 class core_controller {
+    protected $param = null;
     public function __construct() {}
     protected function template($dirFile='') {
         $app = isset($_GET['app']) ? $_GET['app'] : 'application';
@@ -14,6 +15,11 @@ class core_controller {
                 $fil = $str[0];
             }
         }
+        $param = $this->param;
+        $this->param = null;
         require __DIR__ . '/../' . $app . '/templates/' . $dir . '/' . $fil . '.html';
+    }
+    protected function setParam($key, $value) {
+        $this->param[$key] = $value;
     }
 }
