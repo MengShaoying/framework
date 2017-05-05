@@ -10,9 +10,7 @@ class core_cache extends core_model {
             .$this->_prefix.$this->_table);
     }
     private function _getFile() {
-        if (empty($this->_lastSql)) {
-            $this->_makeSql();
-        }
+        $this->_makeSql();
         return $this->_getDir().'/'.md5($this->_lastSql).'.cache';
     }
     private function _delDir($dir) {
@@ -32,9 +30,9 @@ class core_cache extends core_model {
         if (false === $result) {
             return false;
         }
-        if (empty(@file_put_contents($file, serialize($result)))) {
+        if (empty(@file_put_contents($file, serialize($result), LOCK_EX))) {
             mkdir($this->_getDir(),'0777',true);
-            file_put_contents($file, serialize($result));
+            file_put_contents($file, serialize($result), LOCK_EX);
         }
         return $result;
     }
