@@ -8,9 +8,20 @@ class core_model extends core_mysqlpdo {
     protected $_order  = '';
     protected $_limit  = '';
     protected $_lastSql = '';
-    public function __construct() {
-        parent::__construct();
-        $this->_prefix = core_config::$config['database']['prefix'];
+    public function __construct($sqlServer='') {
+        if (empty($sqlServer)) {
+            $config = core_config::get('serverList');
+            foreach ($config as $v) {
+                $config = $v;
+                break;
+            }
+            parent::__construct($config);
+        } else {
+            $config = core_config::get('serverList');
+            $config = $config[$sqlServer];
+            parent::__construct($config);
+        }
+        $this->_prefix = $config['prefix'];
     }
     public function prefix($prefix) {
         $this->_prefix = $prefix;

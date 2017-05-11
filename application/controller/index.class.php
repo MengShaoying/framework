@@ -4,11 +4,13 @@ class index extends core_controller {
         parent::__construct();
     }
     public function index() {
-        $handle = new core_cache();
-        $res = $handle->table('account')->select();
-        var_dump($res);
-        var_dump($handle);
-        
+        $h1 = new core_cache('ortherServer');
+        $list = $h1->table('account')->limit(10)->select();
+        var_dump($h1);
+        var_dump($list);
         $this->template();
+    }
+    public function make() {
+        var_dump($_POST);
     }
 }

@@ -8,8 +8,7 @@ class core_mysqlpdo {
     protected $longConnect = false;
     protected $pdoObj   = null;
     public    $error    = '';
-    public function __construct() {
-        $config = core_config::get('database');
+    public function __construct($config) {
         $this->type     = $config['type'];
         $this->host     = $config['host'];
         $this->dbname   = $config['dbname'];

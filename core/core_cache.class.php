@@ -1,8 +1,8 @@
 <?php
 class core_cache extends core_model {
     protected $_cache = array();
-    public function __construct() {
-        parent::__construct();
+    public function __construct($sqlServer='') {
+        parent::__construct($sqlServer);
         $this->_cache = core_config::get('cache');
     }
     private function _getDir() {
